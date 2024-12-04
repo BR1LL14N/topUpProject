@@ -1,0 +1,171 @@
+/* TAMPILAN SLIDER KANG */
+/* Item carousel secara default */
+.carousel-item {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) scale(0.75); /* Posisi default berada di tengah */
+    width: 80%; /* Membuat gambar tidak terlalu besar */
+    height: 100%;
+    opacity: 0; /* Gambar default tidak tampak */
+    z-index: 0; /* Gambar berada di belakang */
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out, z-index 0.5s ease-in-out; /* Transisi animasi */
+    transform-origin: center; /* Pusat rotasi pada tengah gambar */
+}
+
+/* Gambar yang sedang aktif */
+.carousel-item.active {
+    opacity: 1;
+    z-index: 10; /* Gambar aktif berada di depan */
+    transform: translateX(-50%) scale(1) rotateY(0deg); /* Gambar tetap di tengah dan normal */
+}
+
+/* Gambar di posisi berikutnya (kanan) */
+.carousel-item.next {
+    opacity: 0.7;
+    z-index: 5; /* Gambar mundur sedikit ke belakang */
+    transform: translateX(50%) scale(0.85) rotateY(-15deg); /* Sedikit berputar dan mengecil */
+}
+
+/* Gambar di posisi sebelumnya (kiri) */
+.carousel-item.prev {
+    opacity: 0.7;
+    z-index: 5; /* Gambar mundur sedikit ke belakang */
+    transform: translateX(-150%) scale(0.85) rotateY(15deg); /* Sedikit berputar dan mengecil */
+}
+
+/* Gambar di tengah dengan rounded corners */
+.carousel-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 15px; /* Rounded corners */
+    transition: transform 0.5s ease, opacity 0.5s ease;
+}
+
+/* Bayangan untuk memberikan efek kedalaman */
+.carousel-img {
+    box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.6); /* Bayangan di sekitar gambar */
+}
+
+/* Container untuk membatasi area carousel */
+.carousel-wrapper {
+    perspective: 1000px; /* Memberikan kedalaman 3D */
+    overflow: hidden; /* Gambar di luar area carousel tidak tampak */
+    width: 100%;
+    height: 400px; /* Tinggi area carousel */
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Tombol navigasi carousel */
+button[data-carousel-prev],
+button[data-carousel-next] {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 15;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[data-carousel-prev]:hover,
+button[data-carousel-next]:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Posisi tombol */
+button[data-carousel-prev] {
+    left: 10px;
+}
+
+button[data-carousel-next] {
+    right: 10px;
+}
+
+
+
+/* TAMPILAN CARDS ITEM */
+
+/* Container utama untuk cards */
+.game-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* Kartu game */
+.game-card {
+    background: linear-gradient(145deg, #ffffff, #e0e7ff); /* Putih ke biru */
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
+    width: 200px;
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Gambar icon game */
+.game-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 12px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+/* Informasi game */
+.game-info {
+    flex-grow: 1;
+}
+
+.game-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+}
+
+.game-description {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0.5rem 0;
+}
+
+/* Tombol detail */
+.details-button {
+    background-color: #1e40af;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.details-button:hover {
+    background-color: #1d4ed8;
+}
