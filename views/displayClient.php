@@ -1,9 +1,8 @@
-<?php 
-
-    $displayGame = new gameController();
-    $result = $displayGame->displayGame();
+<?php
+// MENGAMBIL DATA GAME DARI CONTROLLER UNTUK CLIENT
+    $hasil = new clientController();
+    $result = $hasil->displayGameClient();
 ?>
-
 <div class="mt-5 flex flex-col items-center">
     <h4 class="text-2xl font-bold mt-10">Game Populer</h4>
 

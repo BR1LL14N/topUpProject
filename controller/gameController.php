@@ -21,6 +21,9 @@ class gameController {
             case 'display':
                 $this->displayGame();
                 break;
+            case 'detail':
+                // $this->detailGame($gameID);
+                break;
             default:
                 echo "Fitur tidak valid.";
 
@@ -52,7 +55,8 @@ class gameController {
     
         // Chek nilai yang dikembailikan
         if ($result['success']) {
-            echo "Game berhasil ditambahkan dengan ID: " . $result['insert_id'];
+            header("Location: index.php?modul=gameAndItem&fitur=display");
+            echo "<script>alert('Game berhasil ditambahkan!');</script>";
         } else {
             echo "Error: " . $result['error'];
         }
@@ -61,10 +65,10 @@ class gameController {
     // Method untuk meng-handle upload gambar
     public function uploadimg() {
         // Ambil Semua Elemen Yang Diperlukan Dari $_FILES
-        $namafile = $_FILES['game_image']['name'];
-        $ukuran = $_FILES['game_image']['size'];
-        $error = $_FILES['game_image']['error'];
-        $tmpimg = $_FILES['game_image']['tmp_name'];
+        $namafile = $_FILES['game_icon']['name'];
+        $ukuran = $_FILES['game_icon']['size'];
+        $error = $_FILES['game_icon']['error'];
+        $tmpimg = $_FILES['game_icon']['tmp_name'];
 
         // Pengecekan Apakah User Sudah Memasukkan Gambar Atau Tidak
         if ($error === 4) {
@@ -111,13 +115,12 @@ class gameController {
     }
 
     public function displayGame() {
-
         $gameModel = new gameModel($this->conn);
         $result = $gameModel->displayGame();
         // return $result;
         include './views/displayItemAdmin.php';
-
     }
+
 
     public function updateGame($data) {
         $gameId = $data['game_id'];

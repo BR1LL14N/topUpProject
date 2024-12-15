@@ -9,8 +9,6 @@
 </head>
 <body class="bg-gray-100">
 
-<?php var_dump($_POST)?>
-
     <!-- Main Container with Flex layout -->
     <div class="flex min-h-screen">
 
@@ -27,9 +25,7 @@
             <!-- END OF NAVBAR AREA -->
 
             <!-- CONTENT AREA -->
-            <div class="mt-8">
-                <?php include './views/display.php'; ?>
-            </div>
+            <p>Ini Laman Detail Game</p>
         </div>
         <!-- END OF MAIN CONTENT AREA -->
         

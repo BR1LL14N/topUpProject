@@ -25,12 +25,20 @@
             <!-- END OF NAVBAR AREA -->
 
             <!-- CONTENT AREA -->
+
+            <div class="flex justify-start mb-1 mt-2">
+                <a href="./views/formNewgame.php" class="inline-block px-3 py-3 bg-blue-600 text-white font-semibold text-lg rounded-md hover:bg-blue-700 transition duration-300 ease-in-out">
+                    Insert new game
+                </a>
+            </div>
+
             <div class="mt-5 flex flex-col items-center">
+
                 <!-- <h4 class="text-2xl font-bold mt-10">Game Populer</h4> -->
                 <div class="game-cards-container my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <?php foreach ($result as $row) : ?>
                         <div class="game-card bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
-                            <a href="">
+                            <a href="index.php?gameID=<?php echo $row['game_id']; ?>&modul=game&fitur=detail">
                                 <img 
                                     src="./src/<?php echo htmlspecialchars($row['game_icon']); ?>" 
                                     alt="<?php echo htmlspecialchars($row['game_name']); ?>" 

@@ -19,7 +19,7 @@
 
     <div id="carousel-example" class="relative w-full perspective">
     <!-- Wrapper -->
-        <div class="carousel-wrapper relative flex items-center justify-center">
+        <div class="carousel-wrapper relative flex items-center justify-center mt-20">
             <!-- Items -->
             <div id="carousel-item-1" class="carousel-item transform opacity-0 scale-75 z-0 duration-700 ease-in-out" data-carousel-item>
                 <img src="asset/arknights.jpg" class="carousel-img rounded-lg shadow-lg" alt="Item 1">
