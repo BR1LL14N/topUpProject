@@ -83,9 +83,7 @@ class gameModel {
         }
     }
 
-    public function detailGame($gameId) {
-        
-    }
+    
 }
 
 ?>
