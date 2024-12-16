@@ -18,11 +18,15 @@ switch ($modul) {
     case 'manageUsers':
         include './views/displayUserAdmin.php';
         break;
-    case 'product':
-        include './views/product.php';
-        break;
+    // case 'product':
+    //     include './views/product.php';
+    //     break;
     case 'newAdmin':
         include './views/newAdmin.php';
+        break;
+    case 'itemGame':
+        $controller = new itemController();
+        $controller->handleRequest($fitur);
         break;
     default:
         include './views/dashboard.php';

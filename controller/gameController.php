@@ -19,10 +19,9 @@ class gameController {
                 // $this->deleteGame($_POST);
                 break;
             case 'display':
+                // DIKARENAKAN LANGSUNG DIBUANG DI DISPLAY MAKKA METHOD
+                // DISPLAY LAHH YANG AKAN MENG REDIRECT NYA KE LAMAN VIEWS DISPLAY 
                 $this->displayGame();
-                break;
-            case 'detail':
-                // $this->detailGame($gameID);
                 break;
             default:
                 echo "Fitur tidak valid.";

@@ -19,36 +19,50 @@ class itemModel {
                     '" . mysqli_real_escape_string($this->conn, $gameID) . "',
                     '" . mysqli_real_escape_string($this->conn, $itemPrice) . "'
                 )";
-
+    
             // Eksekusi query
             if (mysqli_query($this->conn, $query)) {
+                // Jika berhasil, kembalikan response sukses
                 return [
                     'success' => true,
                     'insert_id' => mysqli_insert_id($this->conn) // Mengembalikan ID item yang baru saja dimasukkan
                 ];
             } else {
+                // Jika query gagal, ambil error dari mysqli
                 throw new Exception("Query Error: " . mysqli_error($this->conn));
             }
         } catch (Exception $e) {
+            // Tangani exception dan kembalikan pesan error
             return [
                 'success' => false,
                 'error' => $e->getMessage()
             ];
         }
     }
+    
+    
 
-    // Method untuk menampilkan semua item
-    public function displayItem() {
-        $query = "SELECT * FROM item";
+    // Menampilkan data item berdasarkan game_id
+    public function displayItem($gameID = null) {
+        $query = "
+            SELECT 
+                item.item_id, 
+                item.item_name, 
+                item.item_description, 
+                item.item_icon, 
+                item.item_price, 
+                game.game_id, 
+                game.game_name 
+            FROM item
+            INNER JOIN game ON item.game_id = game.game_id";
+
+        // Jika gameID diberikan, tambahkan kondisi WHERE
+        if ($gameID !== null) {
+            $query .= " WHERE item.game_id = '" . mysqli_real_escape_string($this->conn, $gameID) . "'";
+        }
+
         $result = mysqli_query($this->conn, $query);
-        if (!$result) {
-            die("Error executing query: " . mysqli_error($this->conn));
-        }
-        $rows = [];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $result; // Mengembalikan resource hasil query
     }
 
     // Method untuk memperbarui data item
