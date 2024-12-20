@@ -2,7 +2,18 @@
 include './init.php';
 $modul = $_GET['modul'] ?? 'dashboard';
 $fitur = $_GET['fitur'] ?? 'display';
+$gameID = $_GET['gameID'] ?? null;
+// $data = $_POST ?? null;
 
+
+
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//     echo '<pre>';
+//     print_r($_POST);
+//     print_r($_FILES);
+//     echo '</pre>';
+//     exit;
+// }
 
 switch ($modul) {
     case 'dashboard':
@@ -25,8 +36,11 @@ switch ($modul) {
         include './views/newAdmin.php';
         break;
     case 'itemGame':
+        // var_dump($_POST);
+        // var_dump($_GET);
+        // exit;
         $controller = new itemController();
-        $controller->handleRequest($fitur);
+        $controller->handleRequest($fitur,$gameID) ;
         break;
     default:
         include './views/dashboard.php';

@@ -4,11 +4,23 @@ class clientController {
     private $conn;
 
     public function handleRequest($fitur) {
-        $gameID = $_GET['game_id'] ?? null;
+        $gameID = $_GET['gameID'] ?? null;
 
         switch ($fitur) {
+            // case 'dashboard':
+            //     include './client.php';
+            //     break;
+
             case 'display':
-                // $this->displayGameClient();
+                $this->displayGameClient();
+                break;
+
+            case 'displayItem':
+                $this->displayItemClient($gameID);
+                break;
+
+            case 'transaksi':
+                include './views/transaksi.php';
                 break;
             default:
                 echo "Fitur tidak valid.";
@@ -29,6 +41,16 @@ class clientController {
         return $result;
         // include './views/displayClient.php';
     }
+
+
+    public function displayItemClient($gameID = null) {
+        $itemModel = new displayClientModel($this->conn);
+        $result = $itemModel->displayItemClient($gameID);
+        // return $result;
+        include './views/displayDetailItemClient.php';
+    }
+
+    
 }
 
 

@@ -9,7 +9,7 @@
     <div class="game-cards-container my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <?php foreach ($result as $row) : ?>
             <div class="game-card bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
-                <a href="">
+                <a href="./indexClient.php?gameID=<?php echo $row['game_id']; ?>&modul=itemGame&fitur=displayItem">
                     <img 
                         src="./src/<?php echo htmlspecialchars($row['game_icon']); ?>" 
                         alt="<?php echo htmlspecialchars($row['game_name']); ?>" 

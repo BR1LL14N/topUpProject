@@ -19,5 +19,11 @@ class displayClientModel{
         }
         return $rows;
     }
+
+    public function displayItemClient($gameID = null) {
+        $itemModel = new itemModel($this->conn);
+        $result = $itemModel->displayItem($gameID);
+        return $result;
+    }
 }
 ?>

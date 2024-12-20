@@ -11,10 +11,13 @@ class itemController {
         }
     }
 
-    public function handleRequest($fitur) {
+    public function handleRequest($fitur,  $gameID = null) {
+        
         switch ($fitur) {
             case 'add':
-                // $this->addItem($_POST);
+                if($gameID != null){
+                    $this->addItem($_POST);
+                }
                 break;
             case 'update':
                 // $this->updateItem($_POST);
@@ -53,27 +56,38 @@ class itemController {
     }
 
     public function addItem($data) {
+        // var_dump($data);
+        // var_dump($gameID);
+
         // Validasi input
-        if (empty($data['itemName']) || empty($data['itemDescription']) || empty($data['itemIcon']) || empty($data['gameID']) || empty($data['itemPrice'])) {
-            echo "Error: Semua data harus diisi.";
-            return;
-        }
-    
+        // if (empty($data['item_name']) || empty($data['item_description']) || empty($data['item_icon']) || empty($data['game_id']) || empty($data['price'])) {
+        //     echo "<script>alert('Semua field harus diisi!');</script>";
+        //     header("Location: index.php?modul=itemGame&fitur=display");
+        //     return;
+        // }
+        
+        $namaItem = $data['item_name'];
+        $deskripsiItem = $data['item_description'];
+        $iconItem = $this->uploadimg();
+        $gameID = $data['game_id'];
+        $hargaItem = $data['price'];
+
         // Panggil model untuk menyimpan data
         $itemModel = new itemModel($this->conn);
-        $insertId = $itemModel->addItemToDb(
-            $data['itemName'],
-            $data['itemDescription'],
-            $data['itemIcon'],
-            $data['gameID'],
-            $data['itemPrice']
-        );
+        $insertId = $itemModel->addItemToDb($gameID,$namaItem,$hargaItem,$deskripsiItem,$iconItem);
     
         // Handle hasil dari model
         if ($insertId) {
-            echo "Item berhasil ditambahkan dengan ID: $insertId";
+            echo "<script>
+                alert('Item Game berhasil ditambahkan!');
+                window.location.href = 'index.php?modul=itemGame&fitur=display&gameID=$gameID';
+            </script>";
+            exit;
         } else {
-            echo "Error: Gagal menambahkan item. " . mysqli_error($this->conn);
+            $err = mysqli_error($this->conn);
+            header("Location: index.php?modul=itemGame&fitur=display");
+            echo "<script>alert('Item Game gagal ditambahkan!');</script>";
+            echo "<script>alert('$err');</script>";
         }
     }
 

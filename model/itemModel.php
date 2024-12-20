@@ -7,17 +7,17 @@ class itemModel {
     }
 
     // Method untuk menambah item ke database
-    public function addItemToDb($itemName, $itemDescription, $itemIcon, $gameID, $itemPrice) {
+    public function addItemToDb($gameID,$namaItem,$hargaItem,$deskripsiItem,$iconItem) {
         try {
             // Query untuk memasukkan data
             $query = "
                 INSERT INTO item (item_name, item_description, item_icon, game_id, item_price) 
                 VALUES (
-                    '" . mysqli_real_escape_string($this->conn, $itemName) . "',
-                    '" . mysqli_real_escape_string($this->conn, $itemDescription) . "',
-                    '" . mysqli_real_escape_string($this->conn, $itemIcon) . "',
+                    '" . mysqli_real_escape_string($this->conn, $namaItem) . "',
+                    '" . mysqli_real_escape_string($this->conn, $deskripsiItem) . "',
+                    '" . mysqli_real_escape_string($this->conn, $iconItem) . "',
                     '" . mysqli_real_escape_string($this->conn, $gameID) . "',
-                    '" . mysqli_real_escape_string($this->conn, $itemPrice) . "'
+                    '" . mysqli_real_escape_string($this->conn, $hargaItem) . "'
                 )";
     
             // Eksekusi query
