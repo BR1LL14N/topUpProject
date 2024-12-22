@@ -83,6 +83,47 @@ class gameModel {
         }
     }
 
+    public function searchGameByID($gameId){
+        // echo "Searching for Game ID: " . $gameId;
+        $query = "SELECT * FROM game WHERE game_id = '$gameId'";
+        $result = mysqli_query($this->conn, $query);
+    
+        if (!$result) {
+            die("Error executing query: " . mysqli_error($this->conn));
+        }
+    
+        // Ambil hanya satu hasil, karena game_id seharusnya unik
+        $row = mysqli_fetch_assoc($result);
+        
+        return $row;  // Mengembalikan satu baris data
+    }
+
+    public function deleteGame($gameId) {
+        try {
+            // Query untuk menghapus data
+            $query = "
+                DELETE FROM game
+                WHERE game_id = '" . mysqli_real_escape_string($this->conn, $gameId) . "'";
+            
+            // Eksekusi query
+            if (mysqli_query($this->conn, $query)) {
+                // Jika berhasil, kembalikan response sukses
+                return [
+                    'success' => true
+                ];
+            } else {
+                // Jika query gagal, ambil error dari mysqli
+                throw new Exception("Query Error: " . mysqli_error($this->conn));
+            }
+        } catch (Exception $e) {
+            // Tangani exception dan kembalikan pesan error
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+
     
 }
 

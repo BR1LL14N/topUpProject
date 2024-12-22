@@ -11,7 +11,7 @@ class itemController {
         }
     }
 
-    public function handleRequest($fitur,  $gameID = null) {
+    public function handleRequest($fitur,  $gameID = null, $itemID = null) {
         
         switch ($fitur) {
             case 'add':
@@ -19,8 +19,12 @@ class itemController {
                     $this->addItem($_POST);
                 }
                 break;
+
+            case 'requestUpdate':
+                $this->requestUpdate($itemID);
+                break;
             case 'update':
-                // $this->updateItem($_POST);
+                $this->updateItem($_POST);
                 break;
             case 'delete':
                 // $this->deleteItem($_POST);
@@ -100,9 +104,9 @@ class itemController {
 
         // Pengecekan Apakah User Sudah Memasukkan Gambar Atau Tidak
         if ($error === 4) {
-            echo "<script>
-                alert('Silahkan Upload Gambar Terlebih Dahulu');
-            </script>";
+            // echo "<script>
+            //     alert('Silahkan Upload Gambar Terlebih Dahulu');
+            // </script>";
             return false;
         }
 
@@ -140,6 +144,59 @@ class itemController {
                 </script>";
             return false;
         }
+    }
+
+    public function searchItemByID($itemID){
+        $itemModel = new itemModel($this->conn);
+        $result = $itemModel->searchItemById($itemID);
+        return $result;
+    }
+
+    public function requestUpdate($itemID){
+        $result = $this->searchItemByID($itemID);
+
+        if ($result) {
+            include './views/formUpdateItem.php';
+        } else {
+            echo "Item tidak ditemukan.";
+        }
+        
+    }
+
+    public function updateItem($data){
+        $itemId = $data['itemID'];
+        $itemName = $data['item_name'];
+        $itemDescription = $data['item_description'];
+        $itemIcon = $data['item_icon'];
+        $gameID = $data['gameID'];
+        $itemPrice = $data['price'];
+
+        $itemModel = new itemModel($this->conn);
+        $currentItem = $this->searchItemByID($itemId);
+        $currentItemIcon = $currentItem['item_icon']; // Gambar lama dari database
+        $itemIcon = $this->uploadimg();
+
+        if ($itemIcon === false) {
+            $itemIcon = $currentItemIcon;
+        }
+
+        $result = $itemModel->updateItem($itemId, $itemName, $itemDescription, $itemIcon, $gameID, $itemPrice);
+
+        if (!$result) {
+            echo "<script>
+                alert('Item gagal diupdate!');
+                window.location.href = 'index.php?modul=itemGame&fitur=display&gameID=$gameID';
+            </script>";
+            return;
+        }
+        echo "<script>
+            alert('Item berhasil diupdate!');
+            window.location.href = 'index.php?modul=itemGame&fitur=display&gameID=$gameID';
+        </script>";
+    }
+
+    public function __destruct() {
+        mysqli_close($this->conn);
     }
     
 }

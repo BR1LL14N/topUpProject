@@ -6,7 +6,7 @@ class gameController {
 
 
     public function handleRequest($fitur){
-        $gameID = $_GET['game_id'] ?? null;
+        $gameID = $_GET['gameID'] ?? null;
 
         switch ($fitur) {
             case 'add':
@@ -17,6 +17,9 @@ class gameController {
                 break;
             case 'delete':
                 // $this->deleteGame($_POST);
+                break;
+            case 'requestUpdate':
+                $this->requestUpdate($gameID);
                 break;
             case 'display':
                 // DIKARENAKAN LANGSUNG DIBUANG DI DISPLAY MAKKA METHOD
@@ -71,10 +74,10 @@ class gameController {
 
         // Pengecekan Apakah User Sudah Memasukkan Gambar Atau Tidak
         if ($error === 4) {
-            echo "<script>
-                alert('Silahkan Upload Gambar Terlebih Dahulu');
-            </script>";
-            return false;
+            // echo "<script>
+            //     alert('Silahkan Upload Gambar Terlebih Dahulu');
+            // </script>";
+            return null;
         }
 
         // Pengecakan Apakah File Yang Upload Oleh User Merupakan File Gambar
@@ -120,28 +123,74 @@ class gameController {
         include './views/displayItemAdmin.php';
     }
 
+    public function searchGameByID($gameId) {
+        $gameModel = new gameModel($this->conn);
+        $result = $gameModel->searchGameByID($gameId);
+        return $result;
+    }
+
 
     public function updateGame($data) {
-        $gameId = $data['game_id'];
+        $gameId = $data['gameID'];
         $gameName = $data['game_name'];
         $gameDescription = $data['game_description'];
         $releaseDate = $data['release_date'];
+        $gameModel = new gameModel($this->conn);
+        $currentGame = $this->searchGameByID($gameId);
+        $currentGameIcon = $currentGame['game_icon']; // Gambar lama dari database
         $gameIcon = $this->uploadimg();
     
         if (!$gameIcon) {
-            echo "Error: Gambar tidak valid atau gagal diupload.";
-            return;
+            $gameIcon = $currentGameIcon;
         }
     
         $gameModel = new gameModel($this->conn);
         $result = $gameModel->updateGame($gameId, $gameName, $gameDescription, $releaseDate, $gameIcon);
     
         // Chek nilai yang dikembailikan
-        if ($result['success']) {
-            echo "Game berhasil diperbarui.";
-        } else {
-            echo "Error: " . $result['error'];
+        if(!$result){
+            echo "
+            <script>
+                alert('Game Gagal diupdate!');
+                window.location.href = 'index.php?modul=gameAndItem&fitur=display';
+            </script>";
         }
+    
+        echo "
+            <script>
+                alert('Game berhasil diupdate!');
+                window.location.href = 'index.php?modul=gameAndItem&fitur=display';
+            </script>";
+    }
+
+    public function requestUpdate($gameId) {
+        $result = $this->searchGameByID($gameId);
+    
+        if ($result) {
+            // Kirimkan data game ke formUpdateGame.php
+            include './views/formUpdateGame.php';
+        } else {
+            // Jika game tidak ditemukan, tampilkan pesan error
+            echo "Game not found.";
+        }
+    }
+
+    public function deleteGame($gameId) {
+        $gameModel = new gameModel($this->conn);
+        $result = $gameModel->deleteGame($gameId);
+        
+        if (!$result) {
+            echo "<script>
+                alert('Game gagal dihapus!');
+                window.location.href = 'index.php?modul=gameAndItem&fitur=display';
+            </script>";
+            return;
+        }
+        
+        echo "<script>
+            alert('Game berhasil dihapus!');
+            window.location.href = 'index.php?modul=gameAndItem&fitur=display';
+        </script>";
     }
 
     public function __destruct() {

@@ -91,5 +91,28 @@ class itemModel {
             ];
         }
     }
+
+    public function searchItemById($itemId) {
+        $query = "
+            SELECT 
+                item.item_id, 
+                item.item_name, 
+                item.item_description, 
+                item.item_icon, 
+                item.item_price, 
+                game.game_id, 
+                game.game_name 
+            FROM item
+            INNER JOIN game ON item.game_id = game.game_id
+            WHERE item.item_id = '" . mysqli_real_escape_string($this->conn, $itemId) . "'";
+        $result = mysqli_query($this->conn, $query);
+
+        if(!$result) {
+            die("Error executing query: " . mysqli_error($this->conn));
+        }
+
+        $row = mysqli_fetch_assoc($result);
+        return $row;
+    }
 }
 ?>
