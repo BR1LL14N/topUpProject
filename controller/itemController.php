@@ -19,15 +19,17 @@ class itemController {
                     $this->addItem($_POST);
                 }
                 break;
-
             case 'requestUpdate':
                 $this->requestUpdate($itemID);
+                break;
+            case 'delete':
+                $this->deleteItem($itemID);
                 break;
             case 'update':
                 $this->updateItem($_POST);
                 break;
-            case 'delete':
-                // $this->deleteItem($_POST);
+            case 'requestDelete':
+                $this->confirmedDelete($itemID);
                 break;
             case 'display':
                 $this->displayItem($_GET['gameID'] ?? null);
@@ -73,7 +75,7 @@ class itemController {
         $namaItem = $data['item_name'];
         $deskripsiItem = $data['item_description'];
         $iconItem = $this->uploadimg();
-        $gameID = $data['game_id'];
+        $gameID = $data['gameID'];
         $hargaItem = $data['price'];
 
         // Panggil model untuk menyimpan data
@@ -192,6 +194,35 @@ class itemController {
         echo "<script>
             alert('Item berhasil diupdate!');
             window.location.href = 'index.php?modul=itemGame&fitur=display&gameID=$gameID';
+        </script>";
+    }
+
+    public function confirmedDelete($itemID) {
+        echo "<script>
+            var confirmed = confirm('Apakah Anda yakin ingin menghapus item ini?');
+            if (confirmed) {
+                window.location.href = 'index.php?modul=itemGame&fitur=delete&itemID=$itemID';
+            } else {
+                window.location.href = 'index.php?modul=itemGame&fitur=display';
+            }
+        </script>";
+    }
+
+    public function deleteItem($itemID) {
+        $itemModel = new itemModel($this->conn);
+        $result = $itemModel->deleteItem($itemID);
+        
+        if (!$result) {
+            echo "<script>
+                alert('Item gagal dihapus!');
+                window.location.href = 'index.php?modul=itemGame&fitur=display';
+            </script>";
+            return;
+        }
+        
+        echo "<script>
+            alert('Item berhasil dihapus!');
+            window.location.href = 'index.php?modul=itemGame&fitur=display';
         </script>";
     }
 

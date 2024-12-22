@@ -15,8 +15,11 @@ class gameController {
             case 'update':
                 $this->updateGame($_POST);
                 break;
+            case 'deleteRequest':
+                $this->confirmedDelete($gameID);
+                break;
             case 'delete':
-                // $this->deleteGame($_POST);
+                $this->deleteGame($gameID);
                 break;
             case 'requestUpdate':
                 $this->requestUpdate($gameID);
@@ -173,6 +176,18 @@ class gameController {
             // Jika game tidak ditemukan, tampilkan pesan error
             echo "Game not found.";
         }
+    }
+
+    public function confirmedDelete($gameId) {
+        echo "
+            <script>
+                var confirmed = confirm('Apakah Anda yakin ingin menghapus game ini?');
+                if (confirmed) {
+                    window.location.href = 'index.php?modul=gameAndItem&fitur=delete&gameID=$gameId';
+                } else {
+                    window.location.href = 'index.php?modul=gameAndItem&fitur=display';
+                }
+            </script>";
     }
 
     public function deleteGame($gameId) {

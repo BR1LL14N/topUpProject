@@ -7,7 +7,7 @@
         <h1 class="text-2xl font-bold mb-6 text-center">Add New Item</h1>
         <!-- Form -->
         <form class="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md" action="../index.php?modul=itemGame&fitur=add&gameID=<?= $gameID; ?>" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="game_id" value="<?= $_GET['gameID'] ?>">
+        <input type="hidden" name="gameID" value="<?= $_GET['gameID'] ?>">
         <!-- Game Name -->
         <div class="mb-4">
             <label class="block text-gray-700 text-sm font-bold mb-2" for="item_name">Item Name</label>

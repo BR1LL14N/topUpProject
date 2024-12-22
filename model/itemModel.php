@@ -114,5 +114,11 @@ class itemModel {
         $row = mysqli_fetch_assoc($result);
         return $row;
     }
+
+    public function deleteItem($itemId) {
+        $query = "DELETE FROM item WHERE item_id = '" . mysqli_real_escape_string($this->conn, $itemId) . "'";
+        $result = mysqli_query($this->conn, $query);
+        return $result;
+    }
 }
 ?>
