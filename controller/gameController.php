@@ -147,7 +147,7 @@ class gameController {
             $gameIcon = $currentGameIcon;
         }
     
-        $gameModel = new gameModel($this->conn);
+        // $gameModel = new gameModel($this->conn);
         $result = $gameModel->updateGame($gameId, $gameName, $gameDescription, $releaseDate, $gameIcon);
     
         // Chek nilai yang dikembailikan
@@ -174,7 +174,10 @@ class gameController {
             include './views/formUpdateGame.php';
         } else {
             // Jika game tidak ditemukan, tampilkan pesan error
-            echo "Game not found.";
+            echo "<script>
+                alert('Game tidak ditemukan!');
+                window.location.href = 'index.php?modul=gameAndItem&fitur=display';
+            </script>";
         }
     }
 

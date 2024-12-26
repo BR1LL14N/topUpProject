@@ -4,6 +4,7 @@ $modul = $_GET['modul'] ?? 'dashboard';
 $fitur = $_GET['fitur'] ?? 'display';
 $gameID = $_GET['gameID'] ?? null;
 $itemID = $_GET['itemID'] ?? null;
+$paymentID = $_GET['paymentID'] ?? null;
 
 
 // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -22,9 +23,9 @@ switch ($modul) {
         $controller = new gameController();
         $controller->handleRequest($fitur);
         break;
-    case 'transaction':
-        include './views/displayTransactionAdmin.php';
-        break;
+    // case 'transaction':
+    //     include './views/displayTransactionAdmin.php';
+    //     break;
     case 'manageUsers':
         include './views/displayUserAdmin.php';
         break;
@@ -34,6 +35,10 @@ switch ($modul) {
     case 'itemGame':
         $controller = new itemController();
         $controller->handleRequest($fitur,$gameID,$itemID); ;
+        break;
+    case 'paymentMethod':
+        $controller = new paymentMethodController();
+        $controller->handleRequest($fitur);
         break;
     default:
         include './views/dashboard.php';

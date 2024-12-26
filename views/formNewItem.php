@@ -1,12 +1,11 @@
 <!-- component -->
-<?php $gameID = $_GET['gameID'] ?>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <body class="bg-gray-100">
     <div class="container mx-auto py-8">
         <h1 class="text-2xl font-bold mb-6 text-center">Add New Item</h1>
         <!-- Form -->
-        <form class="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md" action="../index.php?modul=itemGame&fitur=add&gameID=<?= $gameID; ?>" method="POST" enctype="multipart/form-data">
+        <form class="w-full max-w-sm mx-auto bg-white p-8 rounded-md shadow-md" action="../index.php?modul=itemGame&fitur=add&gameID=<?= $_GET['gameID']; ?>" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="gameID" value="<?= $_GET['gameID'] ?>">
         <!-- Game Name -->
         <div class="mb-4">
