@@ -14,11 +14,9 @@ class clientController {
             case 'display':
                 $this->displayGameClient();
                 break;
-
             case 'displayItem':
                 $this->displayItemClient($gameID);
                 break;
-
             case 'transaksi':
                 include './views/transaksi.php';
                 break;

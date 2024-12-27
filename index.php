@@ -23,9 +23,6 @@ switch ($modul) {
         $controller = new gameController();
         $controller->handleRequest($fitur);
         break;
-    // case 'transaction':
-    //     include './views/displayTransactionAdmin.php';
-    //     break;
     case 'manageUsers':
         include './views/displayUserAdmin.php';
         break;

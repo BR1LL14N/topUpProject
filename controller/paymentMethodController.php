@@ -12,6 +12,9 @@ require_once './model/paymentMethodModel.php';
                 case 'display':
                     $this->displayPayment();
                     break;
+                case 'requestUpdate':
+                    $this->requestUpdate($paymentID);
+                    break;
                 case 'update':
                     $this->updatePayment($_POST);
                     break;
@@ -127,7 +130,7 @@ require_once './model/paymentMethodModel.php';
             $result = $this->searchPaymentByID($paymentId);
 
             if ($result) {
-                include './views/updatePayment.php';
+                include './views/formUpdatePayment.php';
             } else {
                 echo "<script>
                         alert('Data tidak ditemukan');
@@ -154,14 +157,14 @@ require_once './model/paymentMethodModel.php';
                 echo "
                 <script>
                     alert('Payment Gagal diupdate!');
-                    window.location.href = 'index.php?menu=paymentMethod&status=failed';
+                    window.location.href = 'index.php?modul=paymentMethod&fitur=display';
                 </script>";
             }
         
             echo "
                 <script>
                     alert('Payment berhasil diupdate!');
-                    window.location.href = 'index.php?menu=paymentMethod&status=success';
+                    window.location.href = 'index.php?modul=paymentMethod&fitur=display';
                 </script>";
         }
 
