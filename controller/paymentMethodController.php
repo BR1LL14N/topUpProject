@@ -18,8 +18,11 @@ require_once './model/paymentMethodModel.php';
                 case 'update':
                     $this->updatePayment($_POST);
                     break;
+                case 'requestDelete':
+                    $this->requestDelete($paymentID);
+                    break;
                 case 'delete':
-                    // $this->deletePayment($paymentID);
+                    $this->deletePayment($paymentID);
                     break;
                     default:
                     echo "Fitur tidak valid.";
@@ -166,6 +169,35 @@ require_once './model/paymentMethodModel.php';
                     alert('Payment berhasil diupdate!');
                     window.location.href = 'index.php?modul=paymentMethod&fitur=display';
                 </script>";
+        }
+
+        public function requestDelete($paymentId) {
+            echo "<script>
+                var confirmed = confirm('Apakah Anda yakin ingin menghapus payment ini?');
+                if (confirmed) {
+                    window.location.href = 'index.php?modul=paymentMethod&fitur=delete&paymentID=$paymentId';
+                } else {
+                    window.location.href = 'index.php?modul=paymentMethod&fitur=display';
+                }";
+        }
+
+        public function deletePayment($paymentId) {
+            $paymentModel = new paymentMethodModel($this->conn);
+            $result = $paymentModel->deletePayment($paymentId);
+        
+            if ($result) {
+                echo "
+                <script>
+                    alert('Payment berhasil dihapus!');
+                    window.location.href = 'index.php?modul=paymentMethod&fitur=display';
+                </script>";
+            } else {
+                echo "
+                <script>
+                    alert('Payment gagal dihapus!');
+                    window.location.href = 'index.php?modul=paymentMethod&fitur=display';
+                </script>";
+            }
         }
 
         public function __destruct() {

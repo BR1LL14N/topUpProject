@@ -156,7 +156,6 @@ class itemController {
 
     public function requestUpdate($itemID){
         $result = $this->searchItemByID($itemID);
-
         if ($result) {
             include './views/formUpdateItem.php';
         } else {
