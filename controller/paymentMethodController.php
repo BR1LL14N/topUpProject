@@ -178,7 +178,8 @@ require_once './model/paymentMethodModel.php';
                     window.location.href = 'index.php?modul=paymentMethod&fitur=delete&paymentID=$paymentId';
                 } else {
                     window.location.href = 'index.php?modul=paymentMethod&fitur=display';
-                }";
+                }
+                </script>";
         }
 
         public function deletePayment($paymentId) {
