@@ -14,6 +14,4 @@ switch ($modul) {
         $controller->handleRequest($fitur);
         break;
 }
-
-
 ?>

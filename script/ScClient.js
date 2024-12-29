@@ -101,44 +101,63 @@ document.addEventListener('DOMContentLoaded', function () {
     updateCarousel();
 });
 
-// console.log("transaksi.js dipanggil langsung!"); 
-// TRANSKASI KANGGGG
-document.addEventListener("DOMContentLoaded", () => {
-    console.log("transaksi.js berhasil terpanggil!"); // Debug untuk memastikan file JS terpanggil
+// // console.log("transaksi.js dipanggil langsung!"); 
+// document.addEventListener("DOMContentLoaded", () => {
+//     console.log("transaksi.js berhasil terpanggil!"); // Debug untuk memastikan file JS terpanggil
 
-    const items = document.querySelectorAll(".game-card");
-    const paymentOptions = document.querySelectorAll(".payment-option");
+//     const items = document.querySelectorAll(".client-game-card");
+//     const paymentOptions = document.querySelectorAll(".payment-option");
+//     const submitButton = document.querySelector("button[type='submit']");
+//     const selectedPaymentInput = document.getElementById("selected_payment_method");
 
-    let selectedItem = null;
-    let selectedPayment = null;
+//     let selectedItem = null;
+//     let selectedPayment = null;
 
-    // Debugging jumlah elemen yang ditemukan
-    console.log(`Jumlah item ditemukan: ${items.length}`);
-    console.log(`Jumlah metode pembayaran ditemukan: ${paymentOptions.length}`);
+//     // Debugging jumlah elemen yang ditemukan
+//     console.log(`Jumlah item ditemukan: ${items.length}`);
+//     console.log(`Jumlah metode pembayaran ditemukan: ${paymentOptions.length}`);
 
-    // Item selection logic
-    items.forEach((item, index) => {
-        console.log(`Item ke-${index + 1}:`, item); // Debugging setiap item
-        item.addEventListener("click", () => {
-            if (selectedItem) selectedItem.classList.remove("border-blue-500");
-            selectedItem = item;
-            selectedItem.classList.add("border-blue-500");
-            console.log(`Item yang dipilih: ${selectedItem.textContent.trim()}`); // Debug pilihan item
-        });
-    });
+//     // Item selection logic
+//     items.forEach((item, index) => {
+//         console.log(`Item ke-${index + 1}:`, item); // Debugging setiap item
+//         item.addEventListener("click", () => {
+//             // Jika item sudah dipilih sebelumnya, hilangkan highlight
+//             if (selectedItem) selectedItem.classList.remove("border-blue-500");
+//             selectedItem = item;
+//             selectedItem.classList.add("border-blue-500");
+//             console.log(`Item yang dipilih: ${selectedItem.textContent.trim()}`); // Debug pilihan item
 
-    // Payment selection logic
-    paymentOptions.forEach((option, index) => {
-        console.log(`Metode pembayaran ke-${index + 1}:`, option); // Debugging setiap metode pembayaran
-        option.addEventListener("click", () => {
-            if (selectedPayment) selectedPayment.classList.remove("border-blue-500");
-            selectedPayment = option;
-            selectedPayment.classList.add("border-blue-500");
-            console.log(`Metode pembayaran yang dipilih: ${selectedPayment.dataset.method}`); // Debug pilihan metode pembayaran
-            document.getElementById("selected_payment_method").value = selectedPayment.dataset.method;
-        });
-    });
-});
+//             // Pastikan form hanya bisa disubmit jika item dan metode pembayaran sudah dipilih
+//             checkFormValidity();
+//         });
+//     });
+
+//     // Payment selection logic
+//     paymentOptions.forEach((option, index) => {
+//         console.log(`Metode pembayaran ke-${index + 1}:`, option); // Debugging setiap metode pembayaran
+//         option.addEventListener("click", () => {
+//             // Jika metode pembayaran sudah dipilih sebelumnya, hilangkan highlight
+//             if (selectedPayment) selectedPayment.classList.remove("border-blue-500");
+//             selectedPayment = option;
+//             selectedPayment.classList.add("border-blue-500");
+//             console.log(`Metode pembayaran yang dipilih: ${selectedPayment.dataset.method}`); // Debug pilihan metode pembayaran
+//             selectedPaymentInput.value = selectedPayment.dataset.method;
+
+//             // Pastikan form hanya bisa disubmit jika item dan metode pembayaran sudah dipilih
+//             checkFormValidity();
+//         });
+//     });
+
+//     // Fungsi untuk mengecek apakah form dapat disubmit
+//     function checkFormValidity() {
+//         if (selectedItem && selectedPayment) {
+//             submitButton.disabled = false; // Aktifkan tombol submit jika keduanya dipilih
+//         } else {
+//             submitButton.disabled = true; // Nonaktifkan tombol submit jika salah satu belum dipilih
+//         }
+//     }
+// });
+
 
 
 

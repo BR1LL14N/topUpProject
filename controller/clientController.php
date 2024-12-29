@@ -44,10 +44,12 @@ class clientController {
     public function displayItemClient($gameID = null) {
         $itemModel = new displayClientModel($this->conn);
         $result = $itemModel->displayItemClient($gameID);
+        $payment = $itemModel->displayPayment();
         // return $result;
         include './views/displayDetailItemClient.php';
     }
 
+    
     
 }
 

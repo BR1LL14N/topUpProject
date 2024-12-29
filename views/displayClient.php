@@ -4,9 +4,9 @@
     $result = $hasil->displayGameClient();
 ?>
 <div class="mt-5 flex flex-col items-center">
-    <h4 class="text-2xl font-bold mt-10">Game Populer</h4>
+    <h4 class="text-2xl font-bold mt-10">Game</h4>
 
-    <div class="game-cards-container my-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="game-cards-container my-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 items-center">
         <?php foreach ($result as $row) : ?>
             <div class="game-card bg-white shadow-lg rounded-lg p-4 flex flex-col items-center">
                 <a href="./indexClient.php?gameID=<?php echo $row['game_id']; ?>&modul=itemGame&fitur=displayItem">

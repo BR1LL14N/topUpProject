@@ -169,3 +169,28 @@ button[data-carousel-next] {
 .details-button:hover {
     background-color: #1d4ed8;
 }
+
+.payment-option:hover {
+    border: 2px solid #4facfe; /* Gradasi biru ke hijau */
+    background: linear-gradient(to right, #e0f7fa, #e3f2fd);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.client-game-card:hover {
+    border: 3px solid #ffd700; /* Contoh warna yang mencolok */
+    box-shadow: 0 0 12px 3px rgba(255, 215, 0, 0.7);
+    transform: scale(1.05);
+    transition: all 0.3s ease;
+}
+
+.client-game-icon {
+    border-radius: 8px; /* Contoh tambahan */
+}
+
+.client-game-name {
+    color: #2a4365; /* Biru lebih gelap */
+}
+
+.client-game-price {
+    font-style: italic;
+}

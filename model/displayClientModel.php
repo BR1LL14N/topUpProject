@@ -25,5 +25,11 @@ class displayClientModel{
         $result = $itemModel->displayItem($gameID);
         return $result;
     }
+
+    public function displayPayment() {
+        $paymentModel = new paymentMethodModel($this->conn);
+        $result = $paymentModel->displayPayment();
+        return $result;
+    }
 }
 ?>
