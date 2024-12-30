@@ -30,4 +30,25 @@ document.addEventListener("DOMContentLoaded", () => {
     // Event listener untuk keyup pada kedua input
     emailInput.addEventListener("keyup", updateImage);
     passwordInput.addEventListener("keyup", updateImage);
+
+    console.log("ready");
+    document.getElementById("togglePassword").addEventListener("click", function () {
+        const passwordField = document.getElementById("password");
+        const eyeOpen = document.getElementById("eyeOpen");
+        const eyeSlash = document.getElementById("eyeSlash");
+
+        if (passwordField.type === "password") {
+            passwordField.type = "text";  // Show the password
+            eyeOpen.classList.remove("hidden"); // Show open eye
+            eyeSlash.classList.add("hidden"); // Hide closed eye
+        } else {
+            passwordField.type = "password";  // Hide the password
+            eyeOpen.classList.add("hidden"); // Hide open eye
+            eyeSlash.classList.remove("hidden"); // Show closed eye
+        }
+    });
 });
+
+
+
+

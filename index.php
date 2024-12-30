@@ -37,6 +37,10 @@ switch ($modul) {
         $controller = new paymentMethodController();
         $controller->handleRequest($fitur);
         break;
+    case 'auth':
+        $controller = new userController();
+        $controller->handleRequest($fitur);
+        break;
     default:
         include './views/dashboard.php';
         break;
