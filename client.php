@@ -1,4 +1,7 @@
-<?php include './init.php'?>
+<?php include './init.php';
+
+// session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +12,10 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
     <link href="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.css"  rel="stylesheet" />
     <link rel="stylesheet" href="./style/clienSide.css">
-    <title>Document</title>
+    <title>Dashboard Client</title>
 </head>
 <body>
+    <?php echo "<script> alert ('Selamat Datang " . $_SESSION['name'] . "'); </script>"?>
     <?php include './views/includes/navClient.php'?>
     <main id="main-container">
 

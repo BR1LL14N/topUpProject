@@ -1,4 +1,5 @@
 <?php
+// session_start();
 include './init.php';
 $modul = $_GET['modul'] ?? 'dashboard';
 $fitur = $_GET['fitur'] ?? 'display';
@@ -6,6 +7,14 @@ $gameID = $_GET['gameID'] ?? null;
 $itemID = $_GET['itemID'] ?? null;
 $paymentID = $_GET['paymentID'] ?? null;
 
+// PENGECEKKAN SESSION
+// if(isset($_SESSION['login'])){
+//     if($_SESSION['login'] == false){
+//         header("Location: loginForm.php");
+//     }
+// }else{
+//     header("Location: loginForm.php");
+// }
 
 // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //     echo '<pre>';
@@ -39,6 +48,10 @@ switch ($modul) {
         break;
     case 'auth':
         $controller = new userController();
+        $controller->handleRequest($fitur);
+        break;
+    case 'transaction':
+        $controller = new transactionController();
         $controller->handleRequest($fitur);
         break;
     default:

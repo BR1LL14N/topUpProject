@@ -1,36 +1,67 @@
 document.addEventListener("DOMContentLoaded", () => {
-    console.log("transactionClient.js berhasil terpanggil!"); // Debug untuk memastikan file JS terpanggil
+    console.log("transactionClient.js berhasil terpanggil!");
 
+    // Seleksi elemen yang relevan
     const items = document.querySelectorAll(".client-game-card");
     const paymentOptions = document.querySelectorAll(".payment-option");
+    const itemQuantityInput = document.getElementById("item_quantity");
+    const selectedItemInput = document.getElementById("selected_item_id");
+    const selectedPaymentInput = document.getElementById("selected_payment_method");
+    const form = document.querySelector("form");
 
     let selectedItem = null;
     let selectedPayment = null;
 
-    // Debugging jumlah elemen yang ditemukan
-    console.log(`Jumlah item ditemukan: ${items.length}`);
-    console.log(`Jumlah metode pembayaran ditemukan: ${paymentOptions.length}`);
+    // Fungsi untuk menangani pemilihan item
+    const handleItemSelection = (item) => {
+        if (selectedItem) selectedItem.classList.remove("border-blue-500");
+        selectedItem = item;
+        selectedItem.classList.add("border-blue-500");
+        selectedItemInput.value = item.dataset.itemId;
+    };
 
-    // Item selection logic
-    items.forEach((item, index) => {
-        console.log(`Item ke-${index + 1}:`, item); // Debugging setiap item
-        item.addEventListener("click", () => {
-            if (selectedItem) selectedItem.classList.remove("border-blue-500");
-            selectedItem = item;
-            selectedItem.classList.add("border-blue-500");
-            console.log(`Item yang dipilih: ${selectedItem.textContent.trim()}`); // Debug pilihan item
-        });
+    // Fungsi untuk menangani pemilihan metode pembayaran
+    const handlePaymentSelection = (option) => {
+        if (selectedPayment) selectedPayment.classList.remove("border-blue-500");
+        selectedPayment = option;
+        selectedPayment.classList.add("border-blue-500");
+        selectedPaymentInput.value = option.dataset.method;
+    };
+
+    // Tambahkan event listener ke setiap item
+    items.forEach((item) => {
+        item.addEventListener("click", () => handleItemSelection(item));
     });
 
-    // Payment selection logic
-    paymentOptions.forEach((option, index) => {
-        console.log(`Metode pembayaran ke-${index + 1}:`, option); // Debugging setiap metode pembayaran
-        option.addEventListener("click", () => {
-            if (selectedPayment) selectedPayment.classList.remove("border-blue-500");
-            selectedPayment = option;
-            selectedPayment.classList.add("border-blue-500");
-            console.log(`Metode pembayaran yang dipilih: ${selectedPayment.dataset.method}`); // Debug pilihan metode pembayaran
-            document.getElementById("selected_payment_method").value = selectedPayment.dataset.method;
-        });
+    // Tambahkan event listener ke setiap metode pembayaran
+    paymentOptions.forEach((option) => {
+        option.addEventListener("click", () => handlePaymentSelection(option));
+    });
+
+    // Validasi form saat submit
+    form.addEventListener("submit", (e) => {
+        const itemQuantity = itemQuantityInput.value.trim();
+        const itemId = selectedItemInput.value;
+        const paymentMethod = selectedPaymentInput.value;
+
+        if (!itemId) {
+            e.preventDefault();
+            alert("Pilih item terlebih dahulu!");
+            return;
+        }
+
+        if (!paymentMethod) {
+            e.preventDefault();
+            alert("Pilih metode pembayaran terlebih dahulu!");
+            return;
+        }
+
+        if (!itemQuantity || itemQuantity <= 0) {
+            e.preventDefault();
+            alert("Masukkan jumlah item yang valid!");
+            return;
+        }
+
+        console.log("Form valid dan siap dikirim!");
     });
 });

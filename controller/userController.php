@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once './model/userModel.php';
 
 class userController{
@@ -24,7 +25,7 @@ class userController{
                 // $this->login($_POST['email'], $_POST['password']);
                 break;
             case 'logout':
-                // $this->logout();
+                $this->logout();
                 break;
             case 'verifyUsernames':
                 // $this->verifyUsernames($_POST['username']);
@@ -72,27 +73,43 @@ class userController{
         }
     }
 
-    public function reqLogin($email,$password){
+    public function reqLogin($email, $password) {
         $userModel = new userModel($this->conn);
-        $user = $userModel->searchUserByEmail($email);
-        if($user){
-            if(password_verify($password, $user['password'])){
-                // $_SESSION['user'] = $user;
-                echo"<script>alert('Login Berhasil selamat datang $user[username]')
-                window.location.href = 'indexClient.php?modul=dashboard&fitur=display';
-                </script>";
-            }else{
-                echo"<script>alert('Password Salah')
-                window.location.href = 'loginForm.php';
-                </script>";
+        $user = $userModel->searchUserByEmail($email); // Pastikan ini menggunakan prepared statements.
+    
+        if ($user) {
+            if (password_verify($password, $user['password'])) {
+                // Regenerasi session ID untuk keamanan
+                session_regenerate_id(true);
+    
+                // Atur sesi berdasarkan role
+                $_SESSION['name'] = $user['username'];
+                $_SESSION['login'] = true;
+                $_SESSION['role'] = $user['role'];
+                $_SESSION['id'] = $user['user_id'];
+    
+                // Redirect berdasarkan role
+                if ($user['role'] == 'user') {
+                    // echo "<script>alert('Login Berhasil selamat datang $user[username]')</script>";
+                    header('Location: indexClient.php?modul=dashboard&fitur=display');
+                } else {
+                    header('Location: index.php?modul=dashboard&fitur=display');
+                }
+                exit();
+            } else {
+                // Flash message untuk password salah
+                $_SESSION['error'] = "Password salah!";
+                header('Location: loginForm.php');
+                exit();
             }
-        }else{
-            echo"<script>alert('Email tidak terdaftar')
-            window.location.href = 'loginForm.php';
-            </script>";
+        } else {
+            // Flash message untuk email tidak terdaftar
+            $_SESSION['error'] = "Email tidak terdaftar!";
+            header('Location: loginForm.php');
+            exit();
         }
-        
     }
+    
 
     public function verifyUsernames($username){
         $userModel = new userModel($this->conn);
@@ -102,6 +119,14 @@ class userController{
         }else{
             return false;
         }
+    }
+
+    public function logout() {
+        // session_start();
+        session_unset();
+        session_destroy();
+        header('Location: loginForm.php');
+        exit();
     }
 
     public function __destruct() {

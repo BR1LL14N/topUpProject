@@ -1,8 +1,15 @@
 <?php
+// session_start();
 include './init.php';
 $modul = $_GET['modul'] ?? 'dashboard';
 $fitur = $_GET['fitur'] ?? 'display';
 
+
+if (!isset($_SESSION['login'])) {
+    // Pengguna sudah login
+    header("Location: loginForm.php");
+    exit();
+}
 
 // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //     echo '<pre>';

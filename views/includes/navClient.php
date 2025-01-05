@@ -32,7 +32,6 @@
                     <i class="fa fa-chevron-down"></i>
                 </button>
                 <ul id="pesanan-menu" class="dropdown-menu hidden absolute bg-white border rounded-md shadow-md mt-2 z-50">
-                    <li><a href="/purchase/order-history" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Belum Bayar</a></li>
                     <li><a href="/purchase/recents" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Riwayat Pesanan</a></li>
                     <li><a href="/purchase/order-status" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Cek Status Pesanan</a></li>
                 </ul>
@@ -45,8 +44,7 @@
                     <i class="fa fa-chevron-down"></i>
                 </button>
                 <ul id="akun-menu" class="dropdown-menu hidden absolute bg-white border rounded-md shadow-md mt-2 z-50">
-                    <li><a href="/auth/sign-in" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Login</a></li>
-                    <li><a href="/auth/register" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Regiter</a></li>
+                    <li><a href="indexClient.php?modul=auth&fitur=logout" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Log Out</a></li>
                     <li><a href="/member/account/details" class="block px-4 py-2 hover:bg-gray-100">Profil</a></li>
                 </ul>
             </div>
