@@ -59,6 +59,19 @@ class transactionController{
         }
     }
 
+    public function displayTransaction(){
+        $transaction = new transactionModel($this->conn);
+        $resultTransactions = $transaction->displayTransaction();
+        return $resultTransactions;
+        // include './views/displayTransactionAdmin.php';
+    }
+
+    public function getTransactionStructure(){
+        $transaction = new transactionModel($this->conn);
+        $resultTransactions = $transaction->getTransactionStructure();
+        return $resultTransactions;
+    }
+
     public function creatEnvoice(){
         $envoice = rand(100000,999999);
         return $envoice;

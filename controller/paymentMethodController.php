@@ -112,12 +112,23 @@ require_once './model/paymentMethodModel.php';
         }
 
         public function displayPayment() {
-            echo "<script>
-                console.log('Display Payment');
-                </script>";
+            
             $paymentModel = new paymentMethodModel($this->conn);
+            $transactionModel = new transactionModel($this->conn);
             $result = $paymentModel->displayPayment();
-            // return $result;
+            $resultTransaction = $transactionModel->getTransactionStructure();
+            
+            // Debug hasil dari fungsi
+            // echo "<pre>";
+            // echo "Hasil displayPayment(): ";
+            // print_r($result);
+            // echo "\nHasil getTransactionStructure(): ";
+            // print_r($resultTransaction);
+            // echo "</pre>";
+
+            // // Hentikan eksekusi untuk memeriksa output
+            // die();
+
             include './views/displayTransactionAdmin.php';
 
 
