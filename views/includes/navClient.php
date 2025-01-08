@@ -11,7 +11,7 @@
 
         <!-- Navigation Menu -->
         <nav class="hidden lg:flex space-x-4">
-            <a href="/featured/pricings" class="text-gray-600 hover:text-blue-600 hover:bg-indigo-100 hover:rounded p-2 flex items-center">Daftar Harga</a>
+            <a href="indexClient.php?modul=dashboard" class="text-gray-600 hover:text-blue-600 hover:bg-indigo-100 hover:rounded p-2 flex items-center">Home</a>
             
             <!-- Dropdown Referral -->
             <div class="relative">
@@ -32,7 +32,7 @@
                     <i class="fa fa-chevron-down"></i>
                 </button>
                 <ul id="pesanan-menu" class="dropdown-menu hidden absolute bg-white border rounded-md shadow-md mt-2 z-50">
-                    <li><a href="/purchase/recents" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Riwayat Pesanan</a></li>
+                    <li><a href="indexClient.php?modul=purchase&fitur=list" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Riwayat Pesanan</a></li>
                     <li><a href="/purchase/order-status" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Cek Status Pesanan</a></li>
                 </ul>
             </div>

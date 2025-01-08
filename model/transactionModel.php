@@ -91,10 +91,12 @@ class transactionModel{
                     t.envoice,
                     t.date,
                     g.game_name,
+                    g.game_icon,
                     i.item_name,
                     i.item_price,
                     u.username,
-                    u.email
+                    u.email,
+                    u.user_id
                 FROM 
                     transactions AS t
                 LEFT JOIN 
@@ -131,16 +133,16 @@ class transactionModel{
     
 
     public function getTransactionByUserID($userID) {
-        $query = "SELECT * FROM transactions WHERE user_id = '$userID'";
-        $result = mysqli_query($this->conn, $query);
-        if (!$result) {
-            die("Error executing query: " . mysqli_error($this->conn));
+        $result = $this->getTransactionStructure();
+        $data = $result['data'];
+        
+        $transactions = [];
+        foreach ($data as $transaction) {
+            if ($transaction['user_id'] == $userID) {
+                $transactions[] = $transaction;
+            }
         }
-        $rows = [];
-        while ($row = mysqli_fetch_assoc($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $transactions;
     }
 }
 ?>

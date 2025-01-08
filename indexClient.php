@@ -33,5 +33,9 @@ switch ($modul) {
         $controller = new userController();
         $controller->handleRequest($fitur);
         break;
+    case 'purchase':
+        $controller = new transactionController();
+        $controller->handleRequest($fitur);
+        break;
 }
 ?>

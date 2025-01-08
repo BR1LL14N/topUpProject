@@ -9,6 +9,9 @@ class transactionController{
             case 'addTransaction':
                 $this->addTransaction($_POST);
                 break;
+            case 'list':
+                $this->getTransactionByUserID();
+                break;
         }
     }
     
@@ -75,6 +78,14 @@ class transactionController{
     public function creatEnvoice(){
         $envoice = rand(100000,999999);
         return $envoice;
+    }
+
+    public function getTransactionByUserID(){
+        $userID = $_SESSION['id'];
+        $transaction = new transactionModel($this->conn);
+        $resultTransactions = $transaction->getTransactionByUserID($userID);
+        // return $resultTransactions;
+        include './views/orderStatusClient.php';
     }
 
     public function __destruct() {
