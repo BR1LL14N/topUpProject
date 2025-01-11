@@ -1,5 +1,7 @@
 <?php
 include './init.php';
+$modul = $_GET['modul'];
+$fitur = $_GET['fitur'];
 
 
 // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -10,9 +12,12 @@ include './init.php';
 //     exit;
 // }
 
-
-$controller = new userController();
-$controller->reqLogin($_POST['email'], $_POST['password']);
+switch ($modul) {
+    case 'auth':
+        $controller = new userController();
+        $controller->handleRequest($fitur);
+        break;
+}
 
 
 

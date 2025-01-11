@@ -1,100 +1,114 @@
-<header class="bg-white shadow-md fixed top-0 left-0 w-full z-50">
-    <div class="container mx-auto px-4 flex items-center justify-between py-4">
-        <!-- Logo -->
-        <div class="flex items-center space-x-3">
-            <img src="path-to-logo.png" alt="Logo Topupgim" class="w-10 h-10">
-            <a href="/" class="text-xl font-bold text-gray-900">
-                <span class="text-blue-600">TopUp</span><span class="text-green-500">Gim</span>
-            </a>
-        </div>
-        <!-- END Logo -->
-
-        <!-- Navigation Menu -->
-        <nav class="hidden lg:flex space-x-4">
-            <a href="indexClient.php?modul=dashboard" class="text-gray-600 hover:text-blue-600 hover:bg-indigo-100 hover:rounded p-2 flex items-center">Home</a>
-            
-            <!-- Dropdown Referral -->
-            <div class="relative">
-                <button data-dropdown="referral-menu" class="dropdown-button flex items-center text-gray-600 hover:text-blue-600 hover:bg-indigo-100 hover:rounded focus:outline-none p-2">
-                    <span>Referral</span>
-                    <i class="fa fa-chevron-down"></i>
-                </button>
-                <ul id="referral-menu" class="dropdown-menu hidden absolute bg-white border rounded-md shadow-md mt-2 z-50">
-                    <li><a href="/page/referral" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Untuk Kamu</a></li>
-                    <li><a href="https://t.me/topupgimcom" target="_blank" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Untuk Influencer</a></li>
-                </ul>
-            </div>
-
-            <!-- Dropdown Pesanan -->
-            <div class="relative">
-                <button data-dropdown="pesanan-menu" class="dropdown-button flex items-center text-gray-600 hover:text-blue-600 hover:bg-indigo-100 hover:rounded focus:outline-none p-2">
-                    <span>Pesanan</span>
-                    <i class="fa fa-chevron-down"></i>
-                </button>
-                <ul id="pesanan-menu" class="dropdown-menu hidden absolute bg-white border rounded-md shadow-md mt-2 z-50">
-                    <li><a href="indexClient.php?modul=purchase&fitur=list" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Riwayat Pesanan</a></li>
-                    <li><a href="/purchase/order-status" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Cek Status Pesanan</a></li>
-                </ul>
-            </div>
-
-            <!-- Dropdown Akun Saya -->
-            <div class="relative">
-                <button data-dropdown="akun-menu" class="dropdown-button flex items-center text-gray-600 hover:text-blue-600 hover:bg-indigo-100 hover:rounded focus:outline-none p-2">
-                    <span>Akun Saya</span>
-                    <i class="fa fa-chevron-down"></i>
-                </button>
-                <ul id="akun-menu" class="dropdown-menu hidden absolute bg-white border rounded-md shadow-md mt-2 z-50">
-                    <li><a href="indexClient.php?modul=auth&fitur=logout" class="block px-4 py-2 hover:bg-gray-100 whitespace-nowrap">Log Out</a></li>
-                    <li><a href="/member/account/details" class="block px-4 py-2 hover:bg-gray-100">Profil</a></li>
-                </ul>
-            </div>
-
-            <!-- Search -->
-            <!-- Tombol Search -->
-            <button 
-                type="button" 
-                class="btn btn-alt-secondary flex items-center justify-center p-2 rounded-md hover:bg-gray-200" 
-                id="search-toggle"
-            >
-                <!-- Ikon SVG untuk Pencarian -->
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
-                </svg>
-            </button>
-
-            <!-- Search Bar (Awalnya tersembunyi) -->
-            <div id="page-header-search" class="hidden fixed top-0 left-0 w-full bg-white z-50 shadow-md">
-                <div class="container mx-auto p-4">
-                    <form class="w-full flex items-center" action="/search" method="GET">
-                        <input 
-                            type="text" 
-                            class="flex-grow px-4 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500" 
-                            minlength="4" 
-                            placeholder="Pencarian game..." 
-                            id="product-search-keyword" 
-                            name="keyword" 
-                            required>
-                        <button 
-                            type="button" 
-                            class="px-4 py-2 bg-red-500 text-white rounded-r-md hover:bg-red-600 focus:outline-none" 
-                            id="close-search"
-                        >
-                            <!-- Ikon Tutup dengan SVG -->
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </form>
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TopUpGim - Modern Navbar</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@latest/dist/full.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        #page-header-search {
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(-100%);
+        }
+        #page-header-search.active {
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="bg-blue-50">
+    <header class="bg-white shadow-lg fixed top-0 left-0 w-full z-50">
+        <div class="container mx-auto px-4">
+            <div class="navbar bg-white">
+                <div class="navbar-start">
+                    <div class="dropdown">
+                        <label tabindex="0" class="btn btn-ghost lg:hidden">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
+                        </label>
+                        <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
+                            <li><a href="indexClient.php?modul=dashboard">Home</a></li>
+                            <li>
+                                <a>Referral</a>
+                                <ul class="p-2">
+                                    <li><a href="/page/referral">Untuk Kamu</a></li>
+                                    <li><a href="https://t.me/topupgimcom" target="_blank">Untuk Influencer</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>Pesanan</a>
+                                <ul class="p-2">
+                                    <li><a href="indexClient.php?modul=purchase&fitur=list">Riwayat Pesanan</a></li>
+                                    <li><a href="indexClient.php?modul=purchase&fitur=status">Cek Status Pesanan</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a>Akun Saya</a>
+                                <ul class="p-2">
+                                    <li><a href="indexClient.php?modul=auth&fitur=logout">Log Out</a></li>
+                                    <li><a href="indexClient.php?modul=auth&fitur=profile">Profil</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="/" class="btn btn-ghost normal-case text-xl">
+                        <span class="text-primary">TopUp</span><span class="text-secondary">Gim</span>
+                    </a>
+                </div>
+                <div class="navbar-end">
+                    <button class="btn btn-ghost btn-circle" id="search-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                    </button>
                 </div>
             </div>
+        </div>
+    </header>
 
-
-        </nav>
-        <!-- END Navigation Menu -->
-
-        <!-- Mobile Menu Button -->
-        <button class="lg:hidden flex items-center text-gray-600 hover:text-blue-600">
-            <i class="fa fa-bars text-2xl"></i>
-        </button>
+    <div id="page-header-search" class="fixed top-0 left-0 w-full bg-white z-50 shadow-lg">
+        <div class="container mx-auto p-4">
+            <form class="flex" action="/search" method="GET">
+                <input type="text" placeholder="Pencarian game..." class="input input-bordered w-full" minlength="4" id="product-search-keyword" name="keyword" required>
+                <button type="button" class="btn btn-square btn-error ml-2" id="close-search">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                </button>
+            </form>
+        </div>
     </div>
-</header>
+
+    <script>
+        const searchToggle = document.getElementById('search-toggle');
+        const closeSearch = document.getElementById('close-search');
+        const searchBar = document.getElementById('page-header-search');
+        const searchInput = document.getElementById('product-search-keyword');
+
+        searchToggle.addEventListener('click', () => {
+            searchBar.classList.add('active');
+            searchInput.focus();
+        });
+
+        closeSearch.addEventListener('click', () => {
+            searchBar.classList.remove('active');
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                searchBar.classList.remove('active');
+            }
+        });
+    </script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#3B82F6',
+                        'secondary': '#10B981',
+                        'accent': '#F59E0B',
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+</html>

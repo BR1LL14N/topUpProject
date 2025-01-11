@@ -20,7 +20,7 @@
 
         <h2 class="text-2xl font-bold text-center text-blue-700 mb-6">Login</h2>
         
-        <form action="helper.php" method="POST">
+        <form action="helper.php?modul=auth&fitur=reqLogin" method="POST">
             <!-- Email Input -->
             <div class="mb-4">
                 <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>

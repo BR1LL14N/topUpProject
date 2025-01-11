@@ -20,7 +20,7 @@
 
         <h2 class="text-2xl font-bold text-center text-blue-700 mb-6">Register</h2>
         
-        <form action="./indexClient.php?modul=auth&fitur=register" method="POST">
+        <form action="helper.php?modul=auth&fitur=register" method="POST">
         <input type="hidden" name="defaultIcon" value="default.jpg">
         <input type="hidden" name="role" value="user">
             <!-- Email Input -->

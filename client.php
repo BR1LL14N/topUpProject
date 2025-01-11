@@ -15,8 +15,14 @@
     <title>Dashboard Client</title>
 </head>
 <body>
-    <?php echo "<script> alert ('Selamat Datang " . $_SESSION['name'] . "'); </script>"?>
-    <?php include './views/includes/navClient.php'?>
+    <?php if(!isset($_SESSION['firstime'])):?>
+        <?php echo "<script> alert ('Selamat Datang " . $_SESSION['name'] . "'); </script>";
+            $_SESSION['firstime'] = true;
+        ?>
+    <?php endif;?>
+    <?php 
+    include './views/includes/navClient.php';
+    ?>
     <main id="main-container">
 
     

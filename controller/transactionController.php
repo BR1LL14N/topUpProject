@@ -9,8 +9,14 @@ class transactionController{
             case 'addTransaction':
                 $this->addTransaction($_POST);
                 break;
-            case 'list':
+            case 'status':
                 $this->getTransactionByUserID();
+                break;
+            case 'update':
+                $this->updateTransactionStatus($_POST['status'], $_POST['transaksi_id']);
+                break;
+            case 'list':
+                $this->getTransactionBerhasil();
                 break;
         }
     }
@@ -86,6 +92,35 @@ class transactionController{
         $resultTransactions = $transaction->getTransactionByUserID($userID);
         // return $resultTransactions;
         include './views/orderStatusClient.php';
+    }
+
+    public function getTransactionBerhasil(){
+        $userID = $_SESSION['id'];
+        $transaction = new transactionModel($this->conn);
+        $resultTransactions = $transaction->getTransactionByUserID($userID);
+        // return $resultTransactions;
+        include './views/historisPesananClient.php';
+    }
+
+    public function updateTransactionStatus($status, $transactionID){
+        // Debugging: Cek data yang diterima
+        // echo "<pre>";
+        // print_r([
+        //     'status' => $status,
+        //     'transactionID' => $transactionID,
+        // ]);
+        // echo "</pre>";
+        // die();
+
+        $transaction = new transactionModel($this->conn);
+        $result = $transaction->updateTransactionStatus($status, $transactionID);
+        if($result){
+            // echo"<script>alert('Status transaksi berhasil diubah');</script>";
+            header("Location: index.php?modul=paymentMethod&fitur=display");
+        }else{
+            echo"<script>alert('Status transaksi gagal diubah');</script>";
+            header("Location: indexAdmin.php?modul=transaction&fitur=display");
+        }
     }
 
     public function __destruct() {

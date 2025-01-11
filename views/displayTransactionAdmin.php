@@ -78,116 +78,111 @@
             </div>
             <!-- BAGIAN AKHIR TAMBAH PAYMENT METHOD -->
 
-            <!-- TABLE STATUS TRANSSAKSI -->
             <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-6">
-                <table class="w-full text-sm text-left text-gray-700 dark:text-gray-300">
-                    <thead class="text-xs uppercase bg-violet-500 dark:bg-violet-600 text-white">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
-                                Username
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Produk yang Dipesan
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Metode Pembayaran
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Status Pesanan
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Aksi
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (empty($resultTransaction)):?>
-                            <p class="text-center text-gray-600">transaction not found</p>
-                            <?php endif;?>
-                        <?php foreach ($resultTransaction['data'] as $row): ?>
-                            <tr class="bg-white border-b text-gray-900 border-gray-200">
-                                <td class="px-6 py-4 font-medium whitespace-nowrap">
-                                    <?php echo $row['username']; ?>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <?php echo $row['item_name']; ?>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <?php echo $row['payment_method']; ?>
-                                </td>
-                                <td class="px-6 py-4">
-                                    <select class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5">
-                                        <option value="pending" <?php echo $row['status'] === 'pending' ? 'selected' : ''; ?>>Pending</option>
-                                        <option value="processed" <?php echo $row['status'] === 'processed' ? 'selected' : ''; ?>>Processed</option>
-                                        <option value="completed" <?php echo $row['status'] === 'completed' ? 'selected' : ''; ?>>Completed</option>
-                                        <option value="cancelled" <?php echo $row['status'] === 'cancelled' ? 'selected' : ''; ?>>Cancelled</option>
-                                    </select>
-                                </td>
-                                <td class="px-6 py-4 flex items-center gap-2">
-                                    <button class="text-white bg-violet-500 hover:bg-violet-600 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
-                                        Update
-                                    </button>
-                                    <button class="text-white bg-violet-500 hover:bg-violet-600 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                                            data-modal-target="default-modal"
-                                            data-modal-toggle="default-modal"
-                                            data-email_game="<?php echo $row['email_game']; ?>"
-                                            data-pass_game="<?php echo $row['pass_game']; ?>"
-                                            data-id_game="<?php echo $row['id_game']; ?>"
-                                            data-nickname_game="<?php echo $row['nickname_game']; ?>"
-                                            data-level_game="<?php echo $row['level_game']; ?>"
-                                            data-server="<?php echo $row['server']; ?>"
-                                            data-envoice="<?php echo $row['envoice']; ?>">
-                                        Detail
-                                    </button>
-                                </td>
+                    <table class="w-full text-sm text-left text-gray-700 dark:text-gray-300">
+                        <thead class="text-xs uppercase bg-violet-500 dark:bg-violet-600 text-white">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Username</th>
+                                <th scope="col" class="px-6 py-3">Produk yang Dipesan</th>
+                                <th scope="col" class="px-6 py-3">Metode Pembayaran</th>
+                                <th scope="col" class="px-6 py-3">Status Pesanan</th>
+                                <th scope="col" class="px-6 py-3">Aksi</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
+                        </thead>
+                        <tbody>
+                            <?php if (empty($resultTransaction)): ?>
+                                <tr>
+                                    <td colspan="5" class="text-center text-gray-600">Transaction not found</td>
+                                </tr>
+                            <?php endif; ?>
 
-    
-                    <!-- MODAL -->
-                    <div id="default-modal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-                    <div class="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
+                            <?php foreach ($resultTransaction['data'] as $row): ?>
+                                <form method="POST" action="index.php?modul=transaction&fitur=update">
+                                    <tr class="bg-white border-b text-gray-900 border-gray-200">
+                                        <td class="px-6 py-4 font-medium whitespace-nowrap">
+                                            <?php echo $row['username']; ?>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <?php echo $row['item_name']; ?>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <?php echo $row['payment_method']; ?>
+                                        </td>
+                                        <td class="px-6 py-4">
+                                            <!-- Mengirimkan transaksi_id dan status untuk tiap baris -->
+                                            <input type="hidden" name="transaksi_id" value="<?php echo $row['transaksi_id']; ?>">
+                                            <select name="status" class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-violet-500 focus:border-violet-500 block w-full p-2.5">
+                                                <option value="diproses" <?php echo $row['status'] === 'diproses' ? 'selected' : ''; ?>>Diproses</option>
+                                                <option value="berhasil" <?php echo $row['status'] === 'berhasil' ? 'selected' : ''; ?>>Berhasil</option>
+                                                <option value="gagal" <?php echo $row['status'] === 'gagal' ? 'selected' : ''; ?>>Gagal</option>
+                                            </select>
+                                        </td>
+                                        <td class="px-6 py-4 flex items-center gap-2">
+                                            <!-- Tombol Update mengirimkan transaksi_id dan status yang relevan -->
+                                            <button type="submit" name="update_row" value="update" class="text-white bg-violet-500 hover:bg-violet-600 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                                Update
+                                            </button>
+                                            <button type="button" class="text-white bg-violet-500 hover:bg-violet-600 focus:ring-4 focus:outline-none focus:ring-violet-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                                                data-modal-target="default-modal"
+                                                data-modal-toggle="default-modal"
+                                                data-email_game="<?php echo $row['email_game']; ?>"
+                                                data-pass_game="<?php echo $row['pass_game']; ?>"
+                                                data-id_game="<?php echo $row['id_game']; ?>"
+                                                data-nickname_game="<?php echo $row['nickname_game']; ?>"
+                                                data-level_game="<?php echo $row['level_game']; ?>"
+                                                data-server="<?php echo $row['server']; ?>"
+                                                data-envoice="<?php echo $row['envoice']; ?>">
+                                                Detail
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </form>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                
+            </div>
 
-                    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-                        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+            <!-- Modal -->
+            <div id="default-modal" class="relative z-10 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                <div class="fixed inset-0 bg-gray-500/75 transition-opacity" aria-hidden="true"></div>
+
+                <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
                         <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                             <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                            <div class="sm:flex sm:items-start">
-                                <div class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:size-10">
-                                <svg class="size-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
-                                </svg>
-                                </div>
-                                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                <h3 class="text-base font-semibold text-gray-900" id="modal-title">Detail Game User:</h3>
-                                <div class="mt-2">
-                                    <p class="text-sm text-gray-500">Are you sure you want to view the details of this game? Here is the detailed information.</p>
-                                    <div class="mt-4">
-                                    <p class="text-sm text-gray-500">Email Game: <span id="game-email">john.doe@example.com</span></p>
-                                    <p class="text-sm text-gray-500">Password Game: <span id="game-pass">******</span></p>
-                                    <p class="text-sm text-gray-500">ID Game: <span id="game-id">12345</span></p>
-                                    <p class="text-sm text-gray-500">Nickname: <span id="game-nickname">JohnDoe123</span></p>
-                                    <p class="text-sm text-gray-500">Level: <span id="game-level">10</span></p>
-                                    <p class="text-sm text-gray-500">Server: <span id="game-server">Server 1</span></p>
-                                    <p class="text-sm text-gray-500">Envoice: <span id="game-envoice">Paid</span></p>
+                                <div class="sm:flex sm:items-start">
+                                    <div class="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-blue-100 sm:mx-0 sm:size-10">
+                                        <svg class="size-6 text-blue-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+                                        </svg>
+                                    </div>
+                                    <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                        <h3 class="text-base font-semibold text-gray-900" id="modal-title">Detail Game User:</h3>
+                                        <div class="mt-2">
+                                            <p class="text-sm text-gray-500">Are you sure you want to view the details of this game? Here is the detailed information.</p>
+                                            <div class="mt-4">
+                                                <p class="text-sm text-gray-500">Email Game: <span id="game-email">john.doe@example.com</span></p>
+                                                <p class="text-sm text-gray-500">Password Game: <span id="game-pass">******</span></p>
+                                                <p class="text-sm text-gray-500">ID Game: <span id="game-id">12345</span></p>
+                                                <p class="text-sm text-gray-500">Nickname: <span id="game-nickname">JohnDoe123</span></p>
+                                                <p class="text-sm text-gray-500">Level: <span id="game-level">10</span></p>
+                                                <p class="text-sm text-gray-500">Server: <span id="game-server">Server 1</span></p>
+                                                <p class="text-sm text-gray-500">Envoice: <span id="game-envoice">Paid</span></p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                </div>
-                            </div>
                             </div>
                             <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                            <button type="button" class="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto" data-modal-hide="default-modal">Close</button>
-                            <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" data-modal-hide="default-modal">Cancel</button>
+                                <button type="button" class="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto" data-modal-hide="default-modal">Close</button>
+                                <button type="button" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto" data-modal-hide="default-modal">Cancel</button>
                             </div>
                         </div>
-                        </div>
                     </div>
-                    </div>
-
-
-                </table>
+                </div>
             </div>
+
 
         </div>
 

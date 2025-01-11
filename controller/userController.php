@@ -2,7 +2,7 @@
 session_start();
 require_once './model/userModel.php';
 
-class userController{
+class userController extends userModel {
 
     private $conn;
 
@@ -21,8 +21,8 @@ class userController{
             case 'reqLogin':
                 $this->reqLogin($_POST['email'], $_POST['password']);
                 break;
-            case 'login':
-                // $this->login($_POST['email'], $_POST['password']);
+            case 'profile':
+                $this->profile();
                 break;
             case 'logout':
                 $this->logout();
@@ -119,6 +119,13 @@ class userController{
         }else{
             return false;
         }
+    }
+
+    public function profile(){
+        $userModel = new userModel($this->conn);
+        $user = $userModel->searchUserByUsername($_SESSION['name']);
+        // return $user;
+        include './views/profileUser.php';
     }
 
     public function logout() {

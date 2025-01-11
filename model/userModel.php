@@ -1,6 +1,12 @@
 <?php
 
-class userModel{
+interface UserInterface {
+    public function addUserToDb($username, $email, $password, $role, $imagePath);
+    public function searchUserByUsername($username);
+    public function searchUserByEmail($email);
+}
+
+class userModel implements UserInterface {
     private $conn;
 
     public function __construct($conn){
@@ -9,7 +15,6 @@ class userModel{
 
     public function addUserToDb($username, $email, $password, $role, $imagePath) {
         try {
-            // Query untuk memasukkan data
             $query = "
                 INSERT INTO users (username, password, email, role, user_icon) 
                 VALUES (
@@ -20,19 +25,15 @@ class userModel{
                     '" . mysqli_real_escape_string($this->conn, $imagePath) . "'
                 )";
 
-            // Eksekusi query
             if (mysqli_query($this->conn, $query)) {
-                // Jika berhasil, kembalikan response sukses
                 return [
                     'success' => true,
-                    'insert_id' => mysqli_insert_id($this->conn) // Mengembalikan ID game yang baru saja dimasukkan
+                    'insert_id' => mysqli_insert_id($this->conn)
                 ];
             } else {
-                // Jika query gagal, ambil error dari mysqli
                 throw new Exception("Query Error: " . mysqli_error($this->conn));
             }
         } catch (Exception $e) {
-            // Tangani exception dan kembalikan pesan error
             return [
                 'success' => false,
                 'error' => $e->getMessage()

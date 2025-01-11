@@ -1,15 +1,24 @@
 <?php
 
-class transactionModel{
-    private $conn;
+abstract class BaseTransactionModel {
+    protected $conn;
 
     public function __construct($conn) {
         $this->conn = $conn;
     }
 
-    public function addTransactionToDb($gameID,$itemID,$userID,$quantity,$paymentMethod,$emailGame,$passGame,$idGame,$nicknameGame,$levelGame,$server,$status,$envoice) {
+    abstract public function addTransactionToDb($gameID, $itemID, $userID, $quantity, $paymentMethod, $emailGame, $passGame, $idGame, $nicknameGame, $levelGame, $server, $status, $envoice);
+    abstract public function displayTransaction();
+    abstract public function getTransactionByEnvoice($envoice);
+    abstract public function getTransactionStructure();
+    abstract public function getTransactionByUserID($userID);
+    abstract public function updateTransactionStatus($status, $transactionID);
+}
+
+class TransactionModel extends BaseTransactionModel {
+
+    public function addTransactionToDb($gameID, $itemID, $userID, $quantity, $paymentMethod, $emailGame, $passGame, $idGame, $nicknameGame, $levelGame, $server, $status, $envoice) {
         try {
-            // Query untuk memasukkan data
             $query = "
                 INSERT INTO transactions (game_id, item_id, user_id, item_quantity, payment_method, email_game, pass_game, id_game, nickname_game, level_game, server, status, envoice) 
                 VALUES (
@@ -28,19 +37,15 @@ class transactionModel{
                     '" . mysqli_real_escape_string($this->conn, $envoice) . "'
                 )";
 
-            // Eksekusi query
             if (mysqli_query($this->conn, $query)) {
-                // Jika berhasil, kembalikan response sukses
                 return [
                     'success' => true,
-                    'insert_id' => mysqli_insert_id($this->conn) // Mengembalikan ID game yang baru saja dimasukkan
+                    'insert_id' => mysqli_insert_id($this->conn)
                 ];
             } else {
-                // Jika query gagal, ambil error dari mysqli
                 throw new Exception("Query Error: " . mysqli_error($this->conn));
             }
         } catch (Exception $e) {
-            // Tangani exception dan kembalikan pesan error
             return [
                 'success' => false,
                 'error' => $e->getMessage()
@@ -61,8 +66,8 @@ class transactionModel{
         return $rows;
     }
 
-    public function getTrancsactionByEnvoice($envoice) {
-        $query = "SELECT * FROM transactions WHERE envoice = '$envoice'";
+    public function getTransactionByEnvoice($envoice) {
+        $query = "SELECT * FROM transactions WHERE envoice = '" . mysqli_real_escape_string($this->conn, $envoice) . "'";
         $result = mysqli_query($this->conn, $query);
         if (!$result) {
             die("Error executing query: " . mysqli_error($this->conn));
@@ -108,13 +113,13 @@ class transactionModel{
                 ORDER BY 
                     t.transaksi_id DESC
             ";
-    
+
             $result = mysqli_query($this->conn, $query);
-    
+
             if ($result) {
                 $data = [];
                 while ($row = mysqli_fetch_assoc($result)) {
-                    $data[] = $row; // Menyimpan data hasil query ke dalam array
+                    $data[] = $row;
                 }
                 return [
                     'success' => true,
@@ -130,12 +135,10 @@ class transactionModel{
             ];
         }
     }
-    
 
     public function getTransactionByUserID($userID) {
         $result = $this->getTransactionStructure();
         $data = $result['data'];
-        
         $transactions = [];
         foreach ($data as $transaction) {
             if ($transaction['user_id'] == $userID) {
@@ -143,6 +146,22 @@ class transactionModel{
             }
         }
         return $transactions;
+    }
+
+    public function updateTransactionStatus($status, $transactionID) {
+        try {
+            $query = "UPDATE transactions SET status = '" . mysqli_real_escape_string($this->conn, $status) . "' WHERE transaksi_id = $transactionID";
+            if (mysqli_query($this->conn, $query)) {
+                return ['success' => true];
+            } else {
+                throw new Exception("Query Error: " . mysqli_error($this->conn));
+            }
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
+        }
     }
 }
 ?>
