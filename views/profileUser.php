@@ -32,7 +32,12 @@ include 'includes/navClient.php'
                     <?php echo date('d F Y', strtotime($user['created_at'])); ?>
                 </p>  
             </div>
-            <button class="btn btn-primary w-full">Edit Profile</button>
+            <a href="indexClient.php?modul=auth&fitur=edit">
+                <button class="btn btn-primary w-full">
+                    Edit Profile
+                </button>
+            </a>
+            
         </div>
     </div>
 

@@ -7,7 +7,7 @@ interface UserInterface {
 }
 
 class userModel implements UserInterface {
-    private $conn;
+    protected $conn;
 
     public function __construct($conn){
         $this->conn = $conn;

@@ -26,26 +26,28 @@
             <input type="hidden" name="status" value="diproses">
 
             <!-- Items and Packages Section -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 animate-fadeIn">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 px-4 animate-fadeIn">
                 <?php if (empty($result)): ?>
                     <p class="text-center text-gray-600">Item not found</p>
                 <?php else: ?>
                     <?php foreach ($result as $row): ?>
                         <label class="relative">
                             <input type="radio" name="item_id" value="<?php echo $row['item_id']; ?>" class="peer hidden" required>
-                            <div class="card bg-base-100 shadow-xl hover:shadow-2xl transition-all duration-300 peer-checked:ring-4 peer-checked:ring-blue-500 cursor-pointer">
-                                <figure class="px-6 pt-6">
-                                    <img src="./src/<?php echo htmlspecialchars($row['item_icon']); ?>" alt="<?php echo htmlspecialchars($row['item_name']); ?>" class="rounded-xl w-24 h-24 object-cover mx-auto" />
+                            <div class="card bg-white shadow-md hover:shadow-lg transition-transform transform hover:scale-105 peer-checked:ring-2 peer-checked:ring-blue-500 cursor-pointer rounded-lg">
+                                <figure class="px-4 pt-4">
+                                    <img src="./src/<?php echo htmlspecialchars($row['item_icon']); ?>" alt="<?php echo htmlspecialchars($row['item_name']); ?>" 
+                                        class="rounded-lg w-20 h-20 object-cover mx-auto" />
                                 </figure>
-                                <div class="card-body items-center text-center">
-                                    <h3 class="card-title text-blue-700"><?php echo htmlspecialchars($row['item_name']); ?></h3>
-                                    <p class="text-blue-600 font-semibold"><?php echo 'Rp ' . number_format($row['item_price'], 0, ',', '.'); ?></p>
+                                <div class="card-body items-center text-center p-3">
+                                    <h3 class="card-title text-blue-700 text-sm font-semibold"><?php echo htmlspecialchars($row['item_name']); ?></h3>
+                                    <p class="text-blue-600 font-medium text-sm"><?php echo 'Rp ' . number_format($row['item_price'], 0, ',', '.'); ?></p>
                                 </div>
                             </div>
                         </label>
                     <?php endforeach; ?>
                 <?php endif; ?>
             </div>
+
 
             <!-- Jumlah Item -->
             <div class="form-control w-full max-w-xs mx-auto animate-fadeIn">

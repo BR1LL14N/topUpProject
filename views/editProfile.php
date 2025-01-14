@@ -41,7 +41,7 @@
                 <button class="btn btn-primary">Save Changes</button>
             </div>
             <div class="text-center">
-                <a href="#" class="link link-hover text-blue-600">Back to Profile</a>
+                <a href="./indexClient.php?modul=auth&fitur=profile" class="link link-hover text-blue-600">Back to Profile</a>
             </div>
         </form>
     </div>

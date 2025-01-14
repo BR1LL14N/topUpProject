@@ -55,7 +55,7 @@ switch ($modul) {
         $controller->handleRequest($fitur);
         break;
     default:
-        include './views/dashboard.php';
+        include '.indexClient.php';
         break;
 }
 ?>

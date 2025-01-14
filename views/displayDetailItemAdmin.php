@@ -14,14 +14,14 @@
 
         <!-- SIDEBAR AREA -->
         <aside class="w-64 bg-gray-800 text-white fixed h-full">
-            <?php include '/laragon/www/projectAkhir/views/includes/sidebar.php'; ?>
+            <?php include 'includes/sidebar.php'; ?>
         </aside>
         <!-- END OF SIDEBAR AREA -->
 
         <!-- MAIN CONTENT AREA -->
         <div class="flex-1 ml-64 p-6">
             <!-- NAVBAR AREA -->
-            <?php include '/laragon/www/projectAkhir/views/includes/navbar.php'; ?>
+            <?php include 'includes/navbar.php'; ?>
             <!-- END OF NAVBAR AREA -->
 
             <!-- CONTENT AREA -->
