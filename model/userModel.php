@@ -70,6 +70,28 @@ class userModel implements UserInterface {
             return null;
         }
     }
+    
+    public function getAlladmins() {
+        try {
+            $query = "SELECT * FROM users WHERE role = 'admin'";
+            $result = mysqli_query($this->conn, $query);
+            if(!$result){
+                die("Error executing query: " . mysqli_error($this->conn));
+            }
+            $rows = [];
+            // echo "<pre>";
+            // print_r($result);
+            // echo "</pre>";
+            // die();
+
+            while ($row = mysqli_fetch_assoc($result)) {
+                $rows[] = $row;
+            }
+            return $rows;
+        } catch (Exception $e) {
+            return null;
+        }
+    }
 }
 
 ?>

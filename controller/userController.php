@@ -28,6 +28,9 @@ class userController extends userModel {
             case 'edit':
                 $this->editProfile();
                 break;
+            case 'admins':
+                $this->getAlladminsController();
+                break;
             default:
                 echo "Fitur tidak valid";
                 break;
@@ -64,6 +67,10 @@ class userController extends userModel {
 
     public function reqLogin($email, $password) {
         $user = $this->searchUserByEmail($email);
+        // echo "<pre>";
+        // print_r($user);
+        // echo "</pre>";
+        // die();
 
         if ($user) {
             if (password_verify($password, $user['password'])) {
@@ -74,7 +81,9 @@ class userController extends userModel {
 
                 if ($user['role'] == 'user') {
                     header('Location: indexClient.php?modul=dashboard&fitur=display');
-                } else {
+                } else if ($user['role'] == 'admin') {
+                    header('Location: index.php?modul=dashboard&fitur=display');
+                }else {
                     header('Location: index.php?modul=dashboard&fitur=display');
                 }
                 exit();
@@ -103,6 +112,15 @@ class userController extends userModel {
     public function editProfile() {
         $user = $this->searchUserByUsername($_SESSION['name']);
         include './views/editProfile.php';
+    }
+
+    public function getAlladminsController(){
+        $admins = $this->getAllAdmins();
+        // echo "<pre>";
+        // print_r($admins);
+        // echo "</pre>";
+        // die();
+        include './views/displayAllAdmins.php';
     }
 
     public function logout() {

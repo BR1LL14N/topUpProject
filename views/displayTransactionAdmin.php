@@ -140,7 +140,6 @@
                             <?php endforeach; ?>
                         </tbody>
                     </table>
-                
             </div>
 
             <!-- Modal -->

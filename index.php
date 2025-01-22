@@ -8,13 +8,10 @@ $itemID = $_GET['itemID'] ?? null;
 $paymentID = $_GET['paymentID'] ?? null;
 
 // PENGECEKKAN SESSION
-// if(isset($_SESSION['login'])){
-//     if($_SESSION['login'] == false){
-//         header("Location: loginForm.php");
-//     }
-// }else{
-//     header("Location: loginForm.php");
-// }
+if(!isset($_SESSION['login'])){
+    header("Location: loginForm.php");
+    exit;
+}
 
 // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 //     echo '<pre>';
@@ -52,6 +49,10 @@ switch ($modul) {
         break;
     case 'transaction':
         $controller = new transactionController();
+        $controller->handleRequest($fitur);
+        break;
+    case 'manageAdmin':
+        $controller = new userController();
         $controller->handleRequest($fitur);
         break;
     default:
